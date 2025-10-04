@@ -1,0 +1,29 @@
+### Healthcheck
+GET http://127.0.0.1:8000/health
+
+### Verfügbare Optionen
+GET http://127.0.0.1:8000/optionen
+
+### Motivation für "müde"
+POST http://127.0.0.1:8000/motivation
+Content-Type: application/json
+
+{
+  "stimmung": "müde"
+}
+
+### Motivation für "gestresst"
+POST http://127.0.0.1:8000/motivation
+Content-Type: application/json
+
+{
+  "stimmung": "gestresst"
+}
+
+### Motivation für "fit"
+POST http://127.0.0.1:8000/motivation
+Content-Type: application/json
+
+{
+  "stimmung": "fit"
+}
