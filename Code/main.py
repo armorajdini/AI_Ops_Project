@@ -2,6 +2,15 @@ from enum import Enum
 from fastapi import FastAPI, Query
 import random
 from typing import Dict, List
+from fastapi.responses import RedirectResponse
+
+# --- App-Instanz zuerst erstellen ---
+app = FastAPI(title="Motivation API", version="0.2.0")
+
+# --- Root-Route (leitet direkt zur Swagger-UI) ---
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/docs")
 
 # --- Stimmung als Enum (Dropdown in Swagger) ---
 class Stimmung(str, Enum):
@@ -28,9 +37,7 @@ SPRUECHE: Dict[str, List[str]] = {
     ],
 }
 
-app = FastAPI(title="Motivation API", version="0.2.0")
-
-# GET mit Query-Parameter -> Swagger zeigt Dropdown & kein Body nötig
+# --- API-Endpunkt ---
 @app.get("/motivation", summary="Gib mir einen Spruch zur gewählten Stimmung")
 def motivation(stimmung: Stimmung = Query(..., description="Wähle deine Stimmung")):
     gruppe = stimmung.value
